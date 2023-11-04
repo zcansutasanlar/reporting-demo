@@ -1,12 +1,17 @@
 package com.cansu.reportingdemo.model.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+@Data
+@Builder
+@Accessors(chain = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLoginInfoRequest {
     String email;
     String password;
 }
-
-/*{
-" token​"​:​"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjaGFudFVzZXJJZCI6MSwicm9s ZSI6ImFkbWluIiwibWVyY2hhbnRJZCI6MSwic3ViTWVyY2hhbnRJZHMiOltdLCJ0aW1lc3Rhb
-XAiOjE0NDQzODk4ODB9.zPxVu4fkRqIy1uG2fO3X2RbxiI4otK_HG7M4MMTB298"​,
-" status​"​:​​ ​​"APPROVED"
-}*/
