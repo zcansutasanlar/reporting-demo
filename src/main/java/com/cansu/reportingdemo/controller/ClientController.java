@@ -1,7 +1,7 @@
 package com.cansu.reportingdemo.controller;
 
 import com.cansu.reportingdemo.model.Constants;
-import com.cansu.reportingdemo.model.request.UserLoginInfo;
+import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.service.RestApiCaller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,8 @@ public class ClientController {
 
     @PostMapping(value = "/login" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean login( @RequestBody(required = true) UserLoginInfo userLoginInfo) throws Exception {
-        restApiCaller.postRequest(constants.workingURL + "/api/v3/merchant/user/login", String.class, userLoginInfo, new HttpHeaders());
+    public Boolean login( @RequestBody(required = true) UserLoginInfoRequest userLoginInfoRequest) throws Exception {
+        restApiCaller.postRequest(constants.workingURL + "/api/v3/merchant/user/login", String.class, userLoginInfoRequest, new HttpHeaders());
         return Boolean.TRUE;
     }
 

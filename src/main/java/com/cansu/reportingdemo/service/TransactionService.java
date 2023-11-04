@@ -1,10 +1,10 @@
 package com.cansu.reportingdemo.service;
 
-import com.cansu.reportingdemo.model.request.UserLoginInfo;
+import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 
 public interface TransactionService {
 
-    boolean transactionsReport(UserLoginInfo userLoginInfo);
-    boolean transactionList(UserLoginInfo userLoginInfo);
-    boolean transaction(UserLoginInfo userLoginInfo);
+    boolean transactionsReport(UserLoginInfoRequest userLoginInfoRequest);
+    boolean transactionList(UserLoginInfoRequest userLoginInfoRequest);
+    boolean transaction(UserLoginInfoRequest userLoginInfoRequest);
 }

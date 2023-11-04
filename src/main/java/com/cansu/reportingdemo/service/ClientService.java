@@ -1,8 +1,8 @@
 package com.cansu.reportingdemo.service;
 
-import com.cansu.reportingdemo.model.request.UserLoginInfo;
+import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 
 public interface ClientService {
 
-    boolean login(UserLoginInfo userLoginInfo);
+    boolean login(UserLoginInfoRequest userLoginInfoRequest);
 }

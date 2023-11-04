@@ -1,10 +1,7 @@
 package com.cansu.reportingdemo.controller;
 
-import com.cansu.reportingdemo.model.Constants;
-import com.cansu.reportingdemo.model.request.UserLoginInfo;
-import com.cansu.reportingdemo.service.RestApiCaller;
+import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.service.TransactionService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,21 +19,21 @@ public class TransactionController {
 
     @PostMapping(value = "/transactionsReport" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean transactionsReport( @RequestBody(required = true) UserLoginInfo request) {
+    public Boolean transactionsReport( @RequestBody(required = true) UserLoginInfoRequest request) {
         transactionService.transactionsReport(request);
         return Boolean.TRUE;
     }
 
     @PostMapping(value = "/transactionList" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean transactionList( @RequestBody(required = true) UserLoginInfo request) {
+    public Boolean transactionList( @RequestBody(required = true) UserLoginInfoRequest request) {
         transactionService.transactionList(request);
         return Boolean.TRUE;
     }
 
     @PostMapping(value = "/transaction" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean transaction( @RequestBody(required = true) UserLoginInfo request) {
+    public Boolean transaction( @RequestBody(required = true) UserLoginInfoRequest request) {
         transactionService.transaction(request);
         return Boolean.TRUE;
     }

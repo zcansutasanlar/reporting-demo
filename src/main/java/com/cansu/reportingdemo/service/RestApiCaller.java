@@ -2,6 +2,7 @@ package com.cansu.reportingdemo.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -13,7 +14,8 @@ import java.util.Optional;
 @Service
 public class RestApiCaller {
 
-    @Autowired
+    @Autowired(required=true)
+    @Qualifier("restTemplate")
     private RestTemplate restTemplate;
 
     public <T> T postRequest(String uri, Class<T> type, Object reqInfo, HttpHeaders headers) throws Exception {
