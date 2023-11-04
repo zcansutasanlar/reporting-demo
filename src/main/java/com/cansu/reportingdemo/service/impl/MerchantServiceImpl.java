@@ -20,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class MerchantServiceImpl implements MerchantService {
 
-    @Autowired
     private final RestTemplate restApiCaller;
 
     public UserLoginInfoResponse login(UserLoginInfoRequest userLoginInfoRequest) {

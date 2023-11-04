@@ -2,7 +2,6 @@ package com.cansu.reportingdemo.controller;
 
 import com.cansu.reportingdemo.model.request.TransactionQueryRequest;
 import com.cansu.reportingdemo.model.request.TransactionReportRequest;
-import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.service.TransactionService;
 import com.cansu.reportingdemo.service.rest.RestResponse;
 import lombok.RequiredArgsConstructor;

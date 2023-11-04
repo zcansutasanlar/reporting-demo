@@ -21,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
-    @Autowired
     private final RestTemplate restApiCaller;
 
     public UserLoginInfoResponse login(UserLoginInfoRequest userLoginInfoRequest) {
