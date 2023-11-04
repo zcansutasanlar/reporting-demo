@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/reporter")
+@RequestMapping("/api/v1/merchant")
 public class MerchantController {
     /* ALL POST MAPPINGS
     /api/v3/merchant/user/login --- Login with email and password.

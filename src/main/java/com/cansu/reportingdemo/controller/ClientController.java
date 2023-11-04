@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/reporter")
+@RequestMapping("/api/v1/client")
 public class ClientController {
     /* ALL POST MAPPINGS
     /api/v3/client --- Request for information of client.
