@@ -3,7 +3,6 @@ package com.cansu.reportingdemo.service.impl;
 import com.cansu.reportingdemo.model.Constants;
 import com.cansu.reportingdemo.model.request.TransactionQueryRequest;
 import com.cansu.reportingdemo.model.request.TransactionReportRequest;
-import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.model.response.TransactionQueryResponse;
 import com.cansu.reportingdemo.model.response.TransactionReportResponse;
 import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
