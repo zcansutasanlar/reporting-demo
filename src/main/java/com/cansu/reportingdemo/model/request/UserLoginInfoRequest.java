@@ -11,10 +11,6 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Accessors(chain = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLoginInfoRequest {
     @NotBlank String email;
     @NotBlank String password;

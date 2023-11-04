@@ -4,9 +4,9 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Constants {
-    public String workingDirectory = "LIVE";
+    public String workingDirectory = "TEST";
 
     public String workingURL = "https://reporting.rpdpymnt.com";
+    public String testingURL = "https://sandbox-reporting.rpdpymnt.com";
 
-    //https://sandbox-reporting.rpdpymnt.com
 }
