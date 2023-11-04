@@ -7,11 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLoginInfoRequest {
-    String email;
-    String password;
+    @NotBlank String email;
+    @NotBlank String password;
 }

@@ -9,17 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/merchant", produces = {MediaType.APPLICATION_JSON_VALUE +";charset=UTF-8"})
-@Api(value = "merchant-api")
 public class MerchantController {
 
     private final MerchantService merchantService;
 
     @PostMapping(value = "/login" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public RestResponse<Object> login(@RequestBody(required = true) UserLoginInfoRequest request) {
+    public RestResponse<Object> login(@Valid @RequestBody UserLoginInfoRequest request) {
         return RestResponse.ok().setData(merchantService.login(request));
     }
 
