@@ -29,8 +29,7 @@ public class MerchantServiceImpl implements MerchantService {
     public UserLoginInfoResponse login(UserLoginInfoRequest userLoginInfoRequest) {
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.add("apiKey","zct");
-            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("apiKey","apiKey");
 
             HttpEntity requestEntity = new HttpEntity(userLoginInfoRequest,headers);
             ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(merchantUserLoginURL, HttpMethod.POST, requestEntity,UserLoginInfoResponse.class );
