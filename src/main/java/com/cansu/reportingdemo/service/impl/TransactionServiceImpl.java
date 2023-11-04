@@ -2,61 +2,56 @@ package com.cansu.reportingdemo.service.impl;
 
 import com.cansu.reportingdemo.model.Constants;
 import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
-import com.cansu.reportingdemo.service.RestApiCaller;
+import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
 import com.cansu.reportingdemo.service.TransactionService;
+import com.cansu.reportingdemo.service.rest.RestClient;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 public class TransactionServiceImpl implements TransactionService {
 
-    RestApiCaller restApiCaller;
+    RestClient restApiCaller;
     Constants constants;
 
     private final String transactionsReportURL = constants.workingURL + "/api/v3/transactions/report";
     private final String transactionListURL = constants.workingURL + "/api/v3/transaction/list";
     private final String transactionURL = constants.workingURL + "/api/v3/transaction";
-    /*
-     --- Request for list of transaction.
-     --- Request for list of transaction.
-     --- Request for all information of transaction.
-
 
     @Override
-    public boolean login(UserLoginInfo userLoginInfo) {
+    public UserLoginInfoResponse transactionsReport(UserLoginInfoRequest request) {
         try {
-            restApiCaller.postRequest( merchantUserLoginPath, String.class, userLoginInfo, new HttpHeaders());
-            return Boolean.TRUE;
+            HttpEntity requestEntity = new HttpEntity(request,new HttpHeaders());
+            ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(transactionsReportURL, HttpMethod.POST, requestEntity,UserLoginInfoResponse.class );
+            return response.getBody();
         } catch (Exception e) {
-            return false;
-        }
-    }
-*/
-    @Override
-    public boolean transactionsReport(UserLoginInfoRequest userLoginInfoRequest) {
-        try {
-            restApiCaller.postRequest(transactionsReportURL, String.class, userLoginInfoRequest, new HttpHeaders());
-            return Boolean.TRUE;
-        } catch (Exception e) {
-            return false;
+            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
-    public boolean transactionList(UserLoginInfoRequest userLoginInfoRequest) {
+    public UserLoginInfoResponse transactionList(UserLoginInfoRequest request) {
         try {
-            restApiCaller.postRequest(transactionListURL, String.class, userLoginInfoRequest, new HttpHeaders());
-            return Boolean.TRUE;
+            HttpEntity requestEntity = new HttpEntity(request,new HttpHeaders());
+            ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(transactionListURL, HttpMethod.POST, requestEntity,UserLoginInfoResponse.class );
+            return response.getBody();
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
-    public boolean transaction(UserLoginInfoRequest userLoginInfoRequest) {
+    public UserLoginInfoResponse transaction(UserLoginInfoRequest request) {
         try {
-            restApiCaller.postRequest(transactionURL, String.class, userLoginInfoRequest, new HttpHeaders());
-            return Boolean.TRUE;
+            HttpEntity requestEntity = new HttpEntity(request,new HttpHeaders());
+            ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(transactionURL, HttpMethod.POST, requestEntity,UserLoginInfoResponse.class );
+            return response.getBody();
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
+            return null;
         }
     }
 }

@@ -2,6 +2,7 @@ package com.cansu.reportingdemo.controller;
 
 import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.service.TransactionService;
+import com.cansu.reportingdemo.service.rest.RestResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,23 +20,20 @@ public class TransactionController {
 
     @PostMapping(value = "/transactionsReport" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean transactionsReport( @RequestBody(required = true) UserLoginInfoRequest request) {
-        transactionService.transactionsReport(request);
-        return Boolean.TRUE;
+    public RestResponse<Object> transactionsReport(@RequestBody(required = true) UserLoginInfoRequest request) {
+        return RestResponse.ok().setData(transactionService.transactionsReport(request));
     }
 
     @PostMapping(value = "/transactionList" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean transactionList( @RequestBody(required = true) UserLoginInfoRequest request) {
-        transactionService.transactionList(request);
-        return Boolean.TRUE;
+    public RestResponse<Object>  transactionList( @RequestBody(required = true) UserLoginInfoRequest request) {
+        return RestResponse.ok().setData(transactionService.transactionList(request));
     }
 
     @PostMapping(value = "/transaction" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean transaction( @RequestBody(required = true) UserLoginInfoRequest request) {
-        transactionService.transaction(request);
-        return Boolean.TRUE;
+    public RestResponse<Object>  transaction( @RequestBody(required = true) UserLoginInfoRequest request) {
+        return RestResponse.ok().setData(transactionService.transaction(request));
     }
 
 }
