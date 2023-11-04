@@ -4,15 +4,15 @@ import com.cansu.reportingdemo.model.Constants;
 import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
 import com.cansu.reportingdemo.service.TransactionService;
-import com.cansu.reportingdemo.service.rest.RestClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 public class TransactionServiceImpl implements TransactionService {
 
-    RestClient restApiCaller;
+    RestTemplate restApiCaller;
     Constants constants;
 
     private final String transactionsReportURL = constants.workingURL + "/api/v3/transactions/report";

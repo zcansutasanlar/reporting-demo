@@ -2,7 +2,6 @@ package com.cansu.reportingdemo.controller;
 
 import com.cansu.reportingdemo.model.Constants;
 import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
-import com.cansu.reportingdemo.service.rest.RestClient;
 import com.cansu.reportingdemo.service.rest.RestResponse;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,6 @@ public class ClientController {
 
      */
 
-    RestClient restApiCaller;
-    Constants constants;
 
     @PostMapping(value = "/login" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)

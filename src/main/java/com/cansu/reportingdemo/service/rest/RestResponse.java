@@ -1,6 +1,5 @@
 package com.cansu.reportingdemo.service.rest;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

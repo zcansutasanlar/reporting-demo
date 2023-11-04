@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@ConfigurationProperties(prefix = "nextcx.timeout-config")
 @Setter
 @Getter
 public class TimeoutConfigurations {
