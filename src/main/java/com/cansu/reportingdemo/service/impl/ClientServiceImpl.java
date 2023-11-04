@@ -3,6 +3,7 @@ package com.cansu.reportingdemo.service.impl;
 import com.cansu.reportingdemo.model.Constants;
 import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
+import com.cansu.reportingdemo.service.ClientService;
 import com.cansu.reportingdemo.service.MerchantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MerchantServiceImpl implements MerchantService {
+public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private final RestTemplate restApiCaller;
@@ -38,4 +39,8 @@ public class MerchantServiceImpl implements MerchantService {
         return null;
     }
 
+    @Override
+    public boolean getClient(String transactionId) {
+        return false;
+    }
 }

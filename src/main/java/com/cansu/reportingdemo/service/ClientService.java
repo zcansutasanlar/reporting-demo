@@ -4,5 +4,5 @@ import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 
 public interface ClientService {
 
-    boolean login(UserLoginInfoRequest userLoginInfoRequest);
+    boolean getClient(String transactionId);
 }

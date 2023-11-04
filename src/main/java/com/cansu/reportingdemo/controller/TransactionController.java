@@ -1,13 +1,21 @@
 package com.cansu.reportingdemo.controller;
 
+import com.cansu.reportingdemo.model.request.TransactionQueryRequest;
+import com.cansu.reportingdemo.model.request.TransactionReportRequest;
 import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.service.TransactionService;
 import com.cansu.reportingdemo.service.rest.RestResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/transaction")
+@RequestMapping(value = "/api/transaction", produces = {MediaType.APPLICATION_JSON_VALUE +";charset=UTF-8"})
 public class TransactionController {
     /* ALL POST MAPPINGS
     /api/v3/transactions/report --- Request for list of transaction.
@@ -16,24 +24,25 @@ public class TransactionController {
 
      */
 
-    TransactionService transactionService;
+    private final TransactionService transactionService;
 
     @PostMapping(value = "/transactionsReport" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public RestResponse<Object> transactionsReport(@RequestBody(required = true) UserLoginInfoRequest request) {
+    public RestResponse<Object> transactionsReport(@Valid @RequestBody(required = true) TransactionReportRequest request) {
         return RestResponse.ok().setData(transactionService.transactionsReport(request));
     }
 
     @PostMapping(value = "/transactionList" , consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public RestResponse<Object>  transactionList( @RequestBody(required = true) UserLoginInfoRequest request) {
+    public RestResponse<Object>  transactionList(@Valid @RequestBody(required = true) TransactionQueryRequest request) {
         return RestResponse.ok().setData(transactionService.transactionList(request));
     }
 
-    @PostMapping(value = "/transaction" , consumes = "application/json")
+    //GetMapping transactionId
+    @GetMapping(value = "/transaction/transactionId={transactionId}")
     @ResponseStatus(HttpStatus.OK)
-    public RestResponse<Object>  transaction( @RequestBody(required = true) UserLoginInfoRequest request) {
-        return RestResponse.ok().setData(transactionService.transaction(request));
+    public RestResponse<Object>  transaction(@Valid @PathVariable(name = "transactionId") String transactionId) {
+        return RestResponse.ok().setData(transactionService.transaction(transactionId));
     }
 
 }
