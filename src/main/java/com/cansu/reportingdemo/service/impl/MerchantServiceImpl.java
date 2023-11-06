@@ -4,25 +4,43 @@ import com.cansu.reportingdemo.model.Constants;
 import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
 import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
 import com.cansu.reportingdemo.service.MerchantService;
-import com.cansu.reportingdemo.service.RestApiCaller;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedHashMap;
+
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class MerchantServiceImpl implements MerchantService {
 
-    RestApiCaller restApiCaller;
-    Constants constants;
+    private final RestTemplate restApiCaller;
 
-    private final String merchantUserLoginURL = constants.workingURL + "/api/v3/merchant/user/login";
-
-    @Override
-    public boolean login(UserLoginInfoRequest userLoginInfoRequest) {
+    public UserLoginInfoResponse login(UserLoginInfoRequest userLoginInfoRequest) {
+        String merchantUserLoginURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/merchant/user/login?apiKey=apiKey";
         try {
-            String response = restApiCaller.postRequest(merchantUserLoginURL, String.class, userLoginInfoRequest, new HttpHeaders());
-            //UserLoginInfoResponse response = restApiCaller.postRequest(merchantUserLoginURL, String.class, userLoginInfoRequest, new HttpHeaders());
-            return Boolean.TRUE;
+            HttpEntity requestEntity = new HttpEntity(userLoginInfoRequest, new HttpHeaders());
+            ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(merchantUserLoginURL, HttpMethod.POST, requestEntity, UserLoginInfoResponse.class);
+            Constants.token = response.getBody().getToken();
+            return response.getBody();
+
+/*
+            ResponseEntity<Object> response = restApiCaller.exchange(merchantUserLoginURL, HttpMethod.POST, requestEntity, Object.class);
+            LinkedHashMap<String, String> body = (LinkedHashMap<String, String>) response.getBody();
+            Constants.token = body.get("token");
+            return new UserLoginInfoResponse(body.get("token"),body.get("status"));*/
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
+        return null;
     }
 
 }
