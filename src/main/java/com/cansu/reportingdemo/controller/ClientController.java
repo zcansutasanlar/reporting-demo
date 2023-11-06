@@ -1,12 +1,11 @@
 package com.cansu.reportingdemo.controller;
 
-import com.cansu.reportingdemo.model.Constants;
-import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
+import com.cansu.reportingdemo.model.request.GetTransactionRequest;
 import com.cansu.reportingdemo.service.ClientService;
-import com.cansu.reportingdemo.service.TransactionService;
 import com.cansu.reportingdemo.service.rest.RestResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,7 +13,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api/client", produces = {MediaType.APPLICATION_JSON_VALUE +";charset=UTF-8"})
+@RequestMapping(value = "/client", produces = {MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"})
 public class ClientController {
     /* ALL POST MAPPINGS
     /api/v3/client --- Request for information of client.
@@ -23,10 +22,10 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @GetMapping(value = "/getClient/transactionId={transactionId}")
+    @PostMapping(value = "/get", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public RestResponse<Object> getClient(@Valid @PathVariable(name = "transactionId") String transactionId) throws Exception {
-        return RestResponse.ok();
+    public RestResponse<Object> getTransaction(@Valid @RequestBody GetTransactionRequest request) {
+        return RestResponse.ok().setData(clientService.getClient(request));
     }
 
 

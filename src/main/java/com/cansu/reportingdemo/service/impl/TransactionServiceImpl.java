@@ -4,8 +4,8 @@ import com.cansu.reportingdemo.model.Constants;
 import com.cansu.reportingdemo.model.request.GetTransactionRequest;
 import com.cansu.reportingdemo.model.request.TransactionQueryRequest;
 import com.cansu.reportingdemo.model.request.TransactionReportRequest;
+import com.cansu.reportingdemo.model.response.GetTransactionResponse;
 import com.cansu.reportingdemo.model.response.TransactionReportResponse;
-import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
 import com.cansu.reportingdemo.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +39,15 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public ResponseEntity<Object> transactionList(TransactionQueryRequest request) {
+    public Object transactionList(TransactionQueryRequest request) {
         String transactionListURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/transaction/list";
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization",Constants.token);
-            HttpEntity requestEntity = new HttpEntity(request,headers);
-            ResponseEntity<Object> response = restApiCaller.exchange(transactionListURL, HttpMethod.POST, requestEntity,Object.class);
+            headers.set("Authorization", Constants.token);
+            HttpEntity requestEntity = new HttpEntity(request, headers);
+            ResponseEntity<Object> response = restApiCaller.exchange(transactionListURL, HttpMethod.POST, requestEntity, Object.class);
             System.out.println(response);
-            return response;
+            return response.getBody();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -55,18 +55,19 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public ResponseEntity<Object> getTransaction(GetTransactionRequest request) {
+    public GetTransactionResponse getTransaction(GetTransactionRequest request) {
         String transactionURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/transaction";
 
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization",Constants.token);
-            HttpEntity requestEntity = new HttpEntity(request,headers);
-            ResponseEntity<Object> response = restApiCaller.exchange(transactionURL, HttpMethod.POST, requestEntity,Object.class );
-            return response;
+            headers.set("Authorization", Constants.token);
+            HttpEntity requestEntity = new HttpEntity(request, headers);
+            ResponseEntity<GetTransactionResponse> response = restApiCaller.exchange(transactionURL, HttpMethod.POST, requestEntity, GetTransactionResponse.class);
+            return response.getBody();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
 }
