@@ -1,8 +1,13 @@
 package com.cansu.reportingdemo.model.response;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
 
+@Getter
+@Setter
 public class TransactionQueryResponse {
     Integer per_page;
     Integer current_page;
@@ -10,6 +15,6 @@ public class TransactionQueryResponse {
     String prev_page_url;
     Integer from;
     Integer to;
-    JSONPObject data;
+    List<Object> data;
 
 }

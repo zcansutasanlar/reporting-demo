@@ -1,9 +1,9 @@
 package com.cansu.reportingdemo.service.impl;
 
 import com.cansu.reportingdemo.model.Constants;
+import com.cansu.reportingdemo.model.request.GetTransactionRequest;
 import com.cansu.reportingdemo.model.request.TransactionQueryRequest;
 import com.cansu.reportingdemo.model.request.TransactionReportRequest;
-import com.cansu.reportingdemo.model.response.TransactionQueryResponse;
 import com.cansu.reportingdemo.model.response.TransactionReportResponse;
 import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
 import com.cansu.reportingdemo.service.TransactionService;
@@ -21,13 +21,15 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-    RestTemplate restApiCaller;
+    private final RestTemplate restApiCaller;
 
     @Override
     public TransactionReportResponse transactionsReport(TransactionReportRequest request) {
         String transactionsReportURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/transactions/report";
         try {
-            HttpEntity requestEntity = new HttpEntity(request,new HttpHeaders());
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization",Constants.token);
+            HttpEntity requestEntity = new HttpEntity(request,headers);
             ResponseEntity<TransactionReportResponse> response = restApiCaller.exchange(transactionsReportURL, HttpMethod.POST, requestEntity,TransactionReportResponse.class );
             return response.getBody();
         } catch (Exception e) {
@@ -37,12 +39,15 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public TransactionQueryResponse transactionList(TransactionQueryRequest request) {
+    public ResponseEntity<Object> transactionList(TransactionQueryRequest request) {
         String transactionListURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/transaction/list";
         try {
-            HttpEntity requestEntity = new HttpEntity(request,new HttpHeaders());
-            ResponseEntity<TransactionQueryResponse> response = restApiCaller.exchange(transactionListURL, HttpMethod.POST, requestEntity,TransactionQueryResponse.class );
-            return response.getBody();
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization",Constants.token);
+            HttpEntity requestEntity = new HttpEntity(request,headers);
+            ResponseEntity<Object> response = restApiCaller.exchange(transactionListURL, HttpMethod.POST, requestEntity,Object.class);
+            System.out.println(response);
+            return response;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -50,13 +55,15 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public UserLoginInfoResponse transaction(String transactionId) {
+    public ResponseEntity<Object> getTransaction(GetTransactionRequest request) {
         String transactionURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/transaction";
 
         try {
-            HttpEntity requestEntity = new HttpEntity(transactionId,new HttpHeaders());
-            ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(transactionURL, HttpMethod.POST, requestEntity,UserLoginInfoResponse.class );
-            return response.getBody();
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization",Constants.token);
+            HttpEntity requestEntity = new HttpEntity(request,headers);
+            ResponseEntity<Object> response = restApiCaller.exchange(transactionURL, HttpMethod.POST, requestEntity,Object.class );
+            return response;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

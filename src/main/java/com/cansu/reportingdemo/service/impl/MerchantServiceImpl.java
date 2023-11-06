@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedHashMap;
+
 
 @Slf4j
 @Service
@@ -23,14 +25,18 @@ public class MerchantServiceImpl implements MerchantService {
     private final RestTemplate restApiCaller;
 
     public UserLoginInfoResponse login(UserLoginInfoRequest userLoginInfoRequest) {
-        String merchantUserLoginURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/merchant/user/login";
+        String merchantUserLoginURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/merchant/user/login?apiKey=apiKey";
         try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("apiKey", "apiKey");
-
-            HttpEntity requestEntity = new HttpEntity(userLoginInfoRequest, headers);
+            HttpEntity requestEntity = new HttpEntity(userLoginInfoRequest, new HttpHeaders());
             ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(merchantUserLoginURL, HttpMethod.POST, requestEntity, UserLoginInfoResponse.class);
+            Constants.token = response.getBody().getToken();
             return response.getBody();
+
+/*
+            ResponseEntity<Object> response = restApiCaller.exchange(merchantUserLoginURL, HttpMethod.POST, requestEntity, Object.class);
+            LinkedHashMap<String, String> body = (LinkedHashMap<String, String>) response.getBody();
+            Constants.token = body.get("token");
+            return new UserLoginInfoResponse(body.get("token"),body.get("status"));*/
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package com.cansu.reportingdemo.controller;
 
+import com.cansu.reportingdemo.model.request.GetTransactionRequest;
 import com.cansu.reportingdemo.model.request.TransactionQueryRequest;
 import com.cansu.reportingdemo.model.request.TransactionReportRequest;
 import com.cansu.reportingdemo.service.TransactionService;
@@ -14,7 +15,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api/transaction", produces = {MediaType.APPLICATION_JSON_VALUE +";charset=UTF-8"})
+@RequestMapping(value = "/transaction", produces = {MediaType.APPLICATION_JSON_VALUE +";charset=UTF-8"})
 public class TransactionController {
     /* ALL POST MAPPINGS
     /api/v3/transactions/report --- Request for list of transaction.
@@ -25,23 +26,22 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @PostMapping(value = "/transactionsReport" , consumes = "application/json")
+    @PostMapping(value = "/transactionsReport" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public RestResponse<Object> transactionsReport(@Valid @RequestBody(required = true) TransactionReportRequest request) {
         return RestResponse.ok().setData(transactionService.transactionsReport(request));
     }
 
-    @PostMapping(value = "/transactionList" , consumes = "application/json")
+    @PostMapping(value = "/transactionList" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public RestResponse<Object>  transactionList(@Valid @RequestBody(required = true) TransactionQueryRequest request) {
         return RestResponse.ok().setData(transactionService.transactionList(request));
     }
 
-    //GetMapping transactionId
-    @GetMapping(value = "/transaction/transactionId={transactionId}")
+    @PostMapping(value = "/getTransaction" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public RestResponse<Object>  transaction(@Valid @PathVariable(name = "transactionId") String transactionId) {
-        return RestResponse.ok().setData(transactionService.transaction(transactionId));
+    public RestResponse<Object> getTransaction(@Valid @RequestBody(required = true) GetTransactionRequest transactionId) {
+        return RestResponse.ok().setData(transactionService.getTransaction(transactionId));
     }
 
 }
