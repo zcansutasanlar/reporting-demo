@@ -1,8 +1,8 @@
 package com.cansu.reportingdemo.service;
 
-import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
+import com.cansu.reportingdemo.model.request.GetTransactionRequest;
 
 public interface ClientService {
 
-    boolean getClient(String transactionId);
+    Object getClient(String authToken ,GetTransactionRequest transactionId);
 }

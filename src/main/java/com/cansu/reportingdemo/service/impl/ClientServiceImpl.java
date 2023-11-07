@@ -1,18 +1,15 @@
 package com.cansu.reportingdemo.service.impl;
 
-import com.cansu.reportingdemo.model.Constants;
-import com.cansu.reportingdemo.model.request.UserLoginInfoRequest;
-import com.cansu.reportingdemo.model.response.UserLoginInfoResponse;
+import com.cansu.reportingdemo.model.request.GetTransactionRequest;
 import com.cansu.reportingdemo.service.ClientService;
-import com.cansu.reportingdemo.service.MerchantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -23,23 +20,32 @@ public class ClientServiceImpl implements ClientService {
 
     private final RestTemplate restApiCaller;
 
-    public UserLoginInfoResponse login(UserLoginInfoRequest userLoginInfoRequest) {
-        String merchantUserLoginURL = (Constants.workingDirectory.equalsIgnoreCase("LIVE") ? Constants.workingURL : Constants.testingURL) + "/api/v3/merchant/user/login";
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("apiKey", "apiKey");
+    @Value("${report.workingDirectory.url:https://sandbox-reporting.rpdpymnt.com}")
+    String workingDirectory;
 
-            HttpEntity requestEntity = new HttpEntity(userLoginInfoRequest, headers);
-            ResponseEntity<UserLoginInfoResponse> response = restApiCaller.exchange(merchantUserLoginURL, HttpMethod.POST, requestEntity, UserLoginInfoResponse.class);
-            return response.getBody();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    @Value("${report.client.get.url}")
+    String getUrl;
 
     @Override
-    public boolean getClient(String transactionId) {
-        return false;
+    public Object getClient(String authToken, GetTransactionRequest request) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", authToken);
+            HttpEntity requestEntity = new HttpEntity(request, headers);
+            ResponseEntity<Object> response = restApiCaller.exchange(workingDirectory + getUrl, HttpMethod.POST, requestEntity, Object.class);
+            return response.getBody();
+        } catch (Exception e) {
+            throw new CustomExceptionHandler();
+        }
+    }
+
+    @ControllerAdvice
+    public class CustomExceptionHandler extends RuntimeException {
+
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        @ExceptionHandler(NullPointerException.class)
+        public void handleException(String message) {
+            System.out.println(message);
+        }
     }
 }

@@ -26,8 +26,14 @@ public class RestResponse<T> {
         return response;
     }
 
+    public static <T> RestResponse<T> error() {
+        RestResponse<T> response = new RestResponse<>();
+        response.setStatus(Status.ERROR);
+        return response;
+    }
+
     public enum Status {
-        OK
+        OK, ERROR
     }
 
     @Getter

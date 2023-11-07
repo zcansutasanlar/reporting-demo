@@ -1,6 +1,5 @@
 package com.cansu.reportingdemo.model.response;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.Getter;
 import lombok.Setter;
 
