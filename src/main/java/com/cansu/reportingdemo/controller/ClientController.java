@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "${report.ui.crossOrigin.url:/api/v3/client}")
+@CrossOrigin(origins = "${report.ui.crossOrigin.url:http://localhost:3000}")
 @RequestMapping(value = "/client", produces = {MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"})
 public class ClientController {
 
@@ -21,7 +21,7 @@ public class ClientController {
 
     @PostMapping(value = "/get", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public RestResponse<Object> getTransaction(@Valid @RequestHeader("Authorization") String authToken, @RequestBody GetTransactionRequest request) {
+    public RestResponse<Object> getClient(@Valid @RequestHeader("Authorization") String authToken, @RequestBody GetTransactionRequest request) {
         return RestResponse.ok().setData(clientService.getClient(authToken,request));
     }
 

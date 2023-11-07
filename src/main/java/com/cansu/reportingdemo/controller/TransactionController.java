@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "${report.ui.crossOrigin.url}")
+@CrossOrigin(origins = "${report.ui.crossOrigin.url:http://localhost:3000}")
 @RequestMapping(value = "/transaction", produces = {MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"})
 public class TransactionController {
 

@@ -56,7 +56,6 @@ public class TransactionServiceImpl implements TransactionService {
             headers.set("Authorization", authToken);
             HttpEntity requestEntity = new HttpEntity(request, headers);
             ResponseEntity<Object> response = restApiCaller.exchange(workingDirectory + queryUrl, HttpMethod.POST, requestEntity, Object.class);
-            System.out.println(response);
             return response;
         } catch (Exception e) {
             throw new CustomExceptionHandler();
