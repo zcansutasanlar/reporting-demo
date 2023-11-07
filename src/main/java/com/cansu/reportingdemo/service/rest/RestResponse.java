@@ -28,12 +28,12 @@ public class RestResponse<T> {
 
     public static <T> RestResponse<T> error() {
         RestResponse<T> response = new RestResponse<>();
-        response.setStatus(Status.DECLINED);
+        response.setStatus(Status.ERROR);
         return response;
     }
 
     public enum Status {
-        OK, DECLINED
+        OK, ERROR
     }
 
     @Getter

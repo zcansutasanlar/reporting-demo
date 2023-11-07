@@ -1,6 +1,5 @@
 package com.cansu.reportingdemo.model.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

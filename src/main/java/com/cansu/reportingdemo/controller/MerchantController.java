@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "${report.ui.crossOrigin.url}")
 @RequestMapping(value = "/api/merchant", produces = {MediaType.APPLICATION_JSON_VALUE +";charset=UTF-8"})
 public class MerchantController {
 

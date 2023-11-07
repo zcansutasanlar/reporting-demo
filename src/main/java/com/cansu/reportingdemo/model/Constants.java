@@ -1,7 +1,6 @@
 package com.cansu.reportingdemo.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
 
@@ -14,5 +13,4 @@ public class Constants {
     public String workingURL = "https://reporting.rpdpymnt.com";
     public String testingURL = "https://sandbox-reporting.rpdpymnt.com";
 
-    public String token = "";
 }
